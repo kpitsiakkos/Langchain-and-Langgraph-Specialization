@@ -5,4 +5,4 @@ __pycache__/
 hf_token.txt
 .env
 *.pyc
-.ipynb_checkpoints/
+.ipynb_checkpoints/LLM setup.ipynb
