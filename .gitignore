@@ -6,3 +6,4 @@ hf_token.txt
 .env
 *.pyc
 .ipynb_checkpoints/LLM setup.ipynb
+openai_token.txt
