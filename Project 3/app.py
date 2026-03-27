@@ -10,7 +10,7 @@ load_dotenv()
 embeddings = OpenAIEmbeddings()
 
 # Import CSV file data
-from langchain.document_loaders.csv_loader import CSVLoader
+from langchain_community.document_loaders.csv_loader import CSVLoader
 loader = CSVLoader(file_path='myData.csv', csv_args={
     'delimiter': ',',
     'quotechar': '"',
@@ -32,7 +32,7 @@ def find_similar(user_input):
     print(docs)
     
     result = "Top Matches:\n\n"
-    result += f"Match 1: {docs[0]}\n\n"
+    result += f"Match 1: {docs[0].page_content}\n\n"
     result += f"Match 2: {docs[1].page_content}"
     return result
 
