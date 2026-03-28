@@ -46,3 +46,20 @@ def getresponse(user_input, api_key):
     print("📝 Memory Buffer:\n", conversation.memory.buffer)
 
     return response
+# ============================================================
+# SUMMARISE FUNCTION
+# Returns the current summarized conversation memory
+# ============================================================
+def summarise():
+    if conversation is None:
+        return "💬 No conversation to summarise yet. Start chatting first!"
+    return "Nice chatting with you my friend ❤️\n\n" + conversation.memory.buffer
+
+# ============================================================
+# RESET FUNCTION
+# Clears the conversation and resets UI
+# ============================================================
+def reset():
+    global conversation
+    conversation = None
+    return [], ""
