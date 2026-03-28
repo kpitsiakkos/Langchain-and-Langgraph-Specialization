@@ -70,8 +70,7 @@ def reset():
 # ============================================================
 def chat(user_input, api_key, history):
     response = getresponse(user_input, api_key)
-    history.append({"role": "user", "content": user_input})
-    history.append({"role": "assistant", "content": response})
+    history.append((user_input, response))
     return history, ""
 
 # ============================================================
@@ -98,7 +97,6 @@ with gr.Blocks() as app:
     chatbot = gr.Chatbot(
         label="Conversation",
         height=420,
-        type="messages",
         elem_classes="chatbot"
     )
 
