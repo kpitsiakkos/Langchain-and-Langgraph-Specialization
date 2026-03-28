@@ -77,8 +77,78 @@ def chat(user_input, api_key, history):
 # ============================================================
 # GRADIO UI
 # ============================================================
-with gr.Blocks(
-    theme=gr.themes.Soft(),  # Clean soft theme for better readability
+with gr.Blocks() as app:
+
+    # ── Header ──────────────────────────────────────────────
+    gr.Markdown("<h1 style='text-align: center;'>🤖 ChatGPT Clone</h1>")
+    gr.Markdown("<p class='subtitle'>Powered by LangChain + OpenAI | Uses Summary Memory to stay within token limits</p>")
+
+    # ── API Key Input ────────────────────────────────────────
+    gr.Markdown("### 🔑 Step 1: Enter your OpenAI API Key")
+    gr.Markdown("<small style='color: #888;'>Your key is never stored — it's used only for this session.</small>")
+    api_key = gr.Textbox(
+        label="OpenAI API Key",
+        type="password",
+        placeholder="sk-...",
+        elem_classes="api-box"
+    )
+
+    # ── Chat Area ────────────────────────────────────────────
+    gr.Markdown("### 💬 Step 2: Start Chatting")
+    chatbot = gr.Chatbot(
+        label="Conversation",
+        height=420,
+        type="messages",
+        elem_classes="chatbot"
+    )
+
+    # ── User Input ───────────────────────────────────────────
+    user_input = gr.Textbox(
+        label="Your message",
+        placeholder="Type your question here and click Send...",
+        lines=3
+    )
+
+    # ── Action Buttons ───────────────────────────────────────
+    gr.Markdown("### ⚡ Actions")
+    with gr.Row():
+        submit = gr.Button("📨 Send", elem_id="send-btn")
+        summarise_btn = gr.Button("📋 Summarise Conversation", elem_id="summarise-btn")
+        reset_btn = gr.Button("🔄 Reset Chat", elem_id="reset-btn")
+
+    # ── Summary Output ───────────────────────────────────────
+    gr.Markdown("### 📝 Conversation Summary")
+    gr.Markdown("<small style='color: #888;'>Click 'Summarise' to see what the AI remembers about your conversation.</small>")
+    summary_output = gr.Textbox(
+        label="Summary",
+        lines=6,
+        interactive=False,
+        placeholder="Your conversation summary will appear here...",
+        elem_id="summary-box"
+    )
+
+    # ── Footer ───────────────────────────────────────────────
+    gr.Markdown("<hr><p style='text-align:center; color:#aaa; font-size:0.8rem;'>Built with 🦜 LangChain + 🤗 Gradio</p>")
+
+    # ── Event Handlers ───────────────────────────────────────
+    submit.click(
+        fn=chat,
+        inputs=[user_input, api_key, chatbot],
+        outputs=[chatbot, user_input]
+    )
+    summarise_btn.click(
+        fn=summarise,
+        outputs=summary_output
+    )
+    reset_btn.click(
+        fn=reset,
+        outputs=[chatbot, summary_output]
+    )
+
+# ── Launch ───────────────────────────────────────────────────
+app.launch(
+
+theme=gr.themes.Soft(),  # Clean soft theme for better readability
     css="""
         /* Page background */
         .gradio-container {
@@ -145,72 +215,4 @@ with gr.Blocks(
             background-color: #ffffff;
         }
     """
-) as app:
-
-    # ── Header ──────────────────────────────────────────────
-    gr.Markdown("<h1 style='text-align: center;'>🤖 ChatGPT Clone</h1>")
-    gr.Markdown("<p class='subtitle'>Powered by LangChain + OpenAI | Uses Summary Memory to stay within token limits</p>")
-
-    # ── API Key Input ────────────────────────────────────────
-    gr.Markdown("### 🔑 Step 1: Enter your OpenAI API Key")
-    gr.Markdown("<small style='color: #888;'>Your key is never stored — it's used only for this session.</small>")
-    api_key = gr.Textbox(
-        label="OpenAI API Key",
-        type="password",
-        placeholder="sk-...",
-        elem_classes="api-box"
-    )
-
-    # ── Chat Area ────────────────────────────────────────────
-    gr.Markdown("### 💬 Step 2: Start Chatting")
-    chatbot = gr.Chatbot(
-        label="Conversation",
-        height=420,
-        elem_classes="chatbot"
-    )
-
-    # ── User Input ───────────────────────────────────────────
-    user_input = gr.Textbox(
-        label="Your message",
-        placeholder="Type your question here and click Send...",
-        lines=3
-    )
-
-    # ── Action Buttons ───────────────────────────────────────
-    gr.Markdown("### ⚡ Actions")
-    with gr.Row():
-        submit = gr.Button("📨 Send", elem_id="send-btn")
-        summarise_btn = gr.Button("📋 Summarise Conversation", elem_id="summarise-btn")
-        reset_btn = gr.Button("🔄 Reset Chat", elem_id="reset-btn")
-
-    # ── Summary Output ───────────────────────────────────────
-    gr.Markdown("### 📝 Conversation Summary")
-    gr.Markdown("<small style='color: #888;'>Click 'Summarise' to see what the AI remembers about your conversation.</small>")
-    summary_output = gr.Textbox(
-        label="Summary",
-        lines=6,
-        interactive=False,
-        placeholder="Your conversation summary will appear here...",
-        elem_id="summary-box"
-    )
-
-    # ── Footer ───────────────────────────────────────────────
-    gr.Markdown("<hr><p style='text-align:center; color:#aaa; font-size:0.8rem;'>Built with 🦜 LangChain + 🤗 Gradio</p>")
-
-    # ── Event Handlers ───────────────────────────────────────
-    submit.click(
-        fn=chat,
-        inputs=[user_input, api_key, chatbot],
-        outputs=[chatbot, user_input]
-    )
-    summarise_btn.click(
-        fn=summarise,
-        outputs=summary_output
-    )
-    reset_btn.click(
-        fn=reset,
-        outputs=[chatbot, summary_output]
-    )
-
-# ── Launch ───────────────────────────────────────────────────
-app.launch()
+)
