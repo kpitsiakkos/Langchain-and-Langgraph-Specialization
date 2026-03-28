@@ -70,7 +70,8 @@ def reset():
 # ============================================================
 def chat(user_input, api_key, history):
     response = getresponse(user_input, api_key)
-    history.append((user_input, response))
+    history.append({"role": "user", "content": user_input})
+    history.append({"role": "assistant", "content": response})
     return history, ""
 
 # ============================================================
