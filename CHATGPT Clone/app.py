@@ -63,3 +63,12 @@ def reset():
     global conversation
     conversation = None
     return [], ""
+
+# ============================================================
+# CHAT HANDLER
+# Appends user message and AI response to chat history
+# ============================================================
+def chat(user_input, api_key, history):
+    response = getresponse(user_input, api_key)
+    history.append((user_input, response))
+    return history, ""
