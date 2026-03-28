@@ -1,0 +1,8 @@
+langchain
+langchain-classic
+langchain-openai
+langchain-community
+gradio
+openai
+tiktoken
+python-dotenv
