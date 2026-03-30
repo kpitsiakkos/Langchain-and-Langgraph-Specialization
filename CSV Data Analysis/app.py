@@ -1,12 +1,14 @@
 import gradio as gr
 from dotenv import load_dotenv
+from utils import query_agent
 
 load_dotenv()
 
 
 def analyze_csv(file, query):
     # Get Response
-    return "sharath"
+    answer = query_agent(file, query)
+    return answer
 
 
 with gr.Blocks(title="CSV Analysis") as demo:
