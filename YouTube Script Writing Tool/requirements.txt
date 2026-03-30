@@ -3,6 +3,8 @@ gradio
 openai
 tiktoken
 python-dotenv
-duckduckgo-search
+ddgs
 langchain-openai
 langchain-community
+langchain-core
+numpy<2

@@ -1,12 +1,14 @@
 import gradio as gr
-
+from utils import generate_script
 
 
 def generate(prompt, video_length, creativity, api_key):
     if not api_key:
         return "Ooopssss!!! Please provide API key.....", "", ""
 
-   
+    search_result, title, script = generate_script(prompt, video_length, creativity, api_key)
+    return title, script, search_result
+
 
 with gr.Blocks(title="YouTube Script Writing Tool") as demo:
     gr.Markdown("# ❤️ YouTube Script Writing Tool")
