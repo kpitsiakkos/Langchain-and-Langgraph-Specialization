@@ -1,0 +1,8 @@
+langchain
+langchain-community
+pinecone-client
+openai
+tiktoken
+nest-asyncio
+sentence-transformers
+gradio
