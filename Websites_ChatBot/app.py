@@ -1,5 +1,7 @@
 import gradio as gr
 import os
+from utils import get_website_data, split_data, create_embeddings, push_to_pinecone, pull_from_pinecone, get_similar_docs
+import constants
 
 # ── Load external CSS ─────────────────────────────────────────────────────────
 
@@ -27,18 +29,16 @@ def search(hf_key: str, pinecone_key: str, query: str, doc_count: int):
 
     os.environ["PINECONE_API_KEY"] = pinecone_key
 
-    # create_embeddings() → pull_from_pinecone() → get_similar_docs()
-    return (
-        "### 👉 Result 1\n"
-        "**Info:** Sample result — replace with document.page_content\n\n"
-        "**Link:** \n\n---\n\n"
-        "### 👉 Result 2\n"
-        "**Info:** Sample result — replace with document.page_content\n\n"
-        "**Link:** \n\n---\n\n"
-        "### 👉 Result 3\n"
-        "**Info:** Sample result — replace with document.page_content\n\n"
-        "**Link:** \n\n---\n\n"
-    )
+    embeddings    = create_embeddings()
+    index         = pull_from_pinecone(pinecone_key, constants.PINECONE_ENVIRONMENT, constants.PINECONE_INDEX, embeddings)
+    relevant_docs = get_similar_docs(index, query, k=doc_count)
+
+    output = ""
+    for i, doc in enumerate(relevant_docs, start=1):
+        output += f"### 👉 Result {i}\n"
+        output += f"**Info:** {doc.page_content}\n\n"
+        output += f"**Link:** {doc.metadata['source']}\n\n---\n\n"
+    return output
 
 
 # ── Layout ────────────────────────────────────────────────────────────────────
