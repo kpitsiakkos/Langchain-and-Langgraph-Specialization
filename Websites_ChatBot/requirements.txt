@@ -1,8 +1,13 @@
 langchain
-langchain-community
-pinecone-client
+pinecone
 openai
 tiktoken
 nest-asyncio
-sentence-transformers
 gradio
+sentence-transformers
+langchain-community
+langchain-huggingface
+langchain-pinecone
+langchain-text-splitters
+lxml
+bs4
