@@ -3,6 +3,8 @@ import os
 from utils import get_website_data, split_data, create_embeddings, push_to_pinecone, pull_from_pinecone, get_similar_docs
 import constants
 
+os.environ["USER_AGENT"] = "WebsiteChatBot/1.0"
+
 # ── Load external CSS ─────────────────────────────────────────────────────────
 
 with open("/Users/kpitsiakkos/Documents/Langchain-and-Langgraph-Specialization/Websites_ChatBot/style.css", "r") as f:
@@ -17,7 +19,11 @@ def load_data(hf_key: str, pinecone_key: str):
 
     os.environ["PINECONE_API_KEY"] = pinecone_key
 
-    # get_website_data() → split_data() → create_embeddings() → push_to_pinecone()
+    site_data  = get_website_data(constants.WEBSITE_URL)
+    chunks     = split_data(site_data)
+    embeddings = create_embeddings()
+    push_to_pinecone(pinecone_key, constants.PINECONE_ENVIRONMENT, constants.PINECONE_INDEX, embeddings, chunks)
+
     return "✅ Data pushed to Pinecone successfully!"
 
 
