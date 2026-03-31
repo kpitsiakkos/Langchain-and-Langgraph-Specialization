@@ -1,0 +1,175 @@
+/* ═══════════════════════════════════════════════════════════════
+   Website AI Assistant — styles.css  (bright theme)
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+
+/* ── Variables ──────────────────────────────────────────────────── */
+
+:root {
+    --bg:       #f0f4ff;
+    --surface:  #ffffff;
+    --border:   #d0d9ff;
+    --accent:   #4361ee;
+    --accent2:  #f72585;
+    --accent3:  #4cc9f0;
+    --text:     #0d0f1a;
+    --muted:    #5a6080;
+    --radius:   12px;
+}
+
+
+/* ── Base ───────────────────────────────────────────────────────── */
+
+body,
+.gradio-container {
+    background: var(--bg) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: var(--text) !important;
+}
+
+/* Colourful top gradient strip */
+.gradio-container::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    z-index: 999;
+}
+
+footer { display: none !important; }
+
+
+/* ── Title ──────────────────────────────────────────────────────── */
+
+h1 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px !important;
+}
+
+h2, h3 {
+    color: var(--text) !important;
+    font-weight: 700 !important;
+}
+
+
+/* ── Inputs ─────────────────────────────────────────────────────── */
+
+input[type="text"],
+input[type="password"],
+textarea {
+    background: var(--surface) !important;
+    border: 2px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    color: var(--text) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 14px !important;
+    padding: 11px 15px !important;
+    transition: border-color .2s, box-shadow .2s !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 4px rgba(67, 97, 238, .12) !important;
+    outline: none !important;
+}
+
+label span {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--muted) !important;
+}
+
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+
+button.primary {
+    background: linear-gradient(135deg, var(--accent), #7b61ff) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: var(--radius) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 12px 24px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 18px rgba(67, 97, 238, .35) !important;
+    transition: transform .15s, box-shadow .15s !important;
+}
+
+button.primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(67, 97, 238, .45) !important;
+}
+
+button.primary:active {
+    transform: translateY(0) !important;
+}
+
+
+/* ── Slider ─────────────────────────────────────────────────────── */
+
+input[type="range"] {
+    accent-color: var(--accent2) !important;
+}
+
+
+/* ── Left column card ───────────────────────────────────────────── */
+
+.gradio-column:first-child {
+    background: var(--surface) !important;
+    border: 2px solid var(--border) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 24px rgba(67, 97, 238, .08) !important;
+}
+
+
+/* ── Results markdown ───────────────────────────────────────────── */
+
+.gr-markdown {
+    font-size: 15px !important;
+    line-height: 1.75 !important;
+    color: var(--text) !important;
+}
+
+.gr-markdown h3 {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--accent) !important;
+    margin: 20px 0 6px !important;
+}
+
+.gr-markdown strong {
+    color: var(--text) !important;
+}
+
+.gr-markdown hr {
+    border: none !important;
+    border-top: 2px dashed var(--border) !important;
+    margin: 14px 0 !important;
+}
+
+
+/* ── Status textbox ─────────────────────────────────────────────── */
+
+.gr-textbox textarea {
+    font-size: 13px !important;
+}
+
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent3); }

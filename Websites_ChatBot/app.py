@@ -1,6 +1,11 @@
 import gradio as gr
 import os
 
+# ── Load external CSS ─────────────────────────────────────────────────────────
+
+with open("/Users/kpitsiakkos/Documents/Langchain-and-Langgraph-Specialization/Websites_ChatBot/style.css", "r") as f:
+    custom_css = f.read()
+
 
 # ── Stub functions — replace with real utils.py calls ─────────────────────────
 
@@ -30,12 +35,15 @@ def search(hf_key: str, pinecone_key: str, query: str, doc_count: int):
         "### 👉 Result 2\n"
         "**Info:** Sample result — replace with document.page_content\n\n"
         "**Link:** \n\n---\n\n"
+        "### 👉 Result 3\n"
+        "**Info:** Sample result — replace with document.page_content\n\n"
+        "**Link:** \n\n---\n\n"
     )
 
 
 # ── Layout ────────────────────────────────────────────────────────────────────
 
-with gr.Blocks(title="🤖 AI Assistance For Website") as demo:
+with gr.Blocks(css=custom_css, title="🤖 AI Assistance For Website") as demo:
 
     gr.Markdown("# 🤖 AI Assistance For Website")
 
