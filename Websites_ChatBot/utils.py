@@ -1,6 +1,6 @@
 import asyncio
 
-from langchain_community.vectorstores import Pinecone
+from langchain_pinecone import PineconeVectorStore
 from langchain_community.document_loaders.sitemap import SitemapLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -44,11 +44,8 @@ def create_embeddings():
 
 def push_to_pinecone(pinecone_apikey, pinecone_environment, pinecone_index_name, embeddings, docs):
     """Embed documents and upsert them into a Pinecone index."""
-    PineconeClient(
-        api_key=pinecone_apikey,
-        environment=pinecone_environment,
-    )
-    index = Pinecone.from_documents(docs, embeddings, index_name=pinecone_index_name)
+    PineconeClient(api_key=pinecone_apikey)
+    index = PineconeVectorStore.from_documents(docs, embeddings, index_name=pinecone_index_name)
     return index
 
 
@@ -56,11 +53,8 @@ def push_to_pinecone(pinecone_apikey, pinecone_environment, pinecone_index_name,
 
 def pull_from_pinecone(pinecone_apikey, pinecone_environment, pinecone_index_name, embeddings):
     """Connect to an existing Pinecone index and return a retrieval-ready object."""
-    PineconeClient(
-        api_key=pinecone_apikey,
-        environment=pinecone_environment,
-    )
-    index = Pinecone.from_existing_index(pinecone_index_name, embeddings)
+    PineconeClient(api_key=pinecone_apikey)
+    index = PineconeVectorStore.from_existing_index(pinecone_index_name, embeddings)
     return index
 
 
