@@ -1,0 +1,13 @@
+gradio
+langchain
+openai
+tiktoken
+python-dotenv
+pinecone-client
+pypdf
+joblib
+pandas
+scikit-learn
+sentence-transformers
+langchain-openai
+langchain-community
