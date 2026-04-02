@@ -1,0 +1,12 @@
+langchain
+langchain-community
+langchain-openai
+langchain-core
+gradio
+openai
+tiktoken
+python-dotenv
+unstructured
+pinecone-client
+pypdf
+sentence-transformers
