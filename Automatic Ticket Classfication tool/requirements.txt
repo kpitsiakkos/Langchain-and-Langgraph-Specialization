@@ -6,7 +6,7 @@ langchain-pinecone
 openai
 tiktoken
 python-dotenv
-pinecone-client
+pinecone
 pypdf
 joblib
 pandas

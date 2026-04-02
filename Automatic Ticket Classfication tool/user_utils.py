@@ -1,14 +1,14 @@
-from pinecone import Pinecone as PineconeClient
+from pinecone import Pinecone
 from langchain_pinecone import PineconeVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_openai import OpenAI
-from langchain.chains.question_answering import load_qa_chain
-from langchain_community.callbacks.openai_info import get_openai_callback
+from langchain_classic.chains.question_answering import load_qa_chain
+from langchain_community.callbacks import get_openai_callback
 import joblib
 
 
 def pull_from_pinecone(pinecone_apikey, pinecone_environment, pinecone_index_name, embeddings):
-    pc = PineconeClient(api_key=pinecone_apikey)
+    Pinecone(api_key=pinecone_apikey)
     index = PineconeVectorStore.from_existing_index(
         index_name=pinecone_index_name,
         embedding=embeddings

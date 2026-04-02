@@ -1,8 +1,8 @@
 from pypdf import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_openai import OpenAI
-from pinecone import Pinecone as PineconeClient
+from pinecone import Pinecone
 from langchain_pinecone import PineconeVectorStore
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -35,7 +35,7 @@ def create_embeddings_load_data():
 
 def push_to_pinecone(pinecone_apikey, pinecone_environment, pinecone_index_name, embeddings, docs):
     """Push document embeddings into a Pinecone index."""
-    PineconeClient(api_key=pinecone_apikey)
+    Pinecone(api_key=pinecone_apikey)
     index = PineconeVectorStore.from_documents(docs, embeddings, index_name=pinecone_index_name)
     return index
 
