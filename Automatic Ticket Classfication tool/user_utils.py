@@ -1,6 +1,6 @@
 from pinecone import Pinecone
 from langchain_pinecone import PineconeVectorStore
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_openai import OpenAI
 from langchain_classic.chains.question_answering import load_qa_chain
 from langchain_community.callbacks import get_openai_callback

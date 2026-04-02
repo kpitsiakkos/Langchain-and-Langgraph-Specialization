@@ -43,8 +43,16 @@ def push_to_pinecone(pinecone_apikey, pinecone_environment, pinecone_index_name,
 # ── ML Model helpers ──────────────────────────────────────────────────────────
 
 def read_data(csv_path):
-    """Read the labelled CSV dataset. Expects two columns: text, label."""
-    df = pd.read_csv(csv_path, delimiter=',', header=None)
+    """Read CSV - handles simple 2-column format (no header) and Kaggle format (with header)."""
+    df_peek = pd.read_csv(csv_path, header=None, nrows=1)
+    first_val = str(df_peek.iloc[0, 0]).strip()
+    if first_val == 'Ticket ID':
+        df = pd.read_csv(csv_path)
+        df = df[['Ticket Description', 'Ticket Type']].dropna()
+        df = df.rename(columns={'Ticket Description': 0, 'Ticket Type': 1})
+        df = df.reset_index(drop=True)
+    else:
+        df = pd.read_csv(csv_path, header=None)
     return df
 
 

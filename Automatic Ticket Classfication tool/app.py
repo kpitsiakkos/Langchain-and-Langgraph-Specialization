@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 # ── Paths ────────────────────────────────────────────────────────────────────
 
 ENV_PATH  = "/Users/kpitsiakkos/Documents/Langchain-and-Langgraph-Specialization/Automatic Ticket Classfication tool/.env"
-CSV_PATH  = "/Users/kpitsiakkos/Documents/Langchain-and-Langgraph-Specialization/Automatic Ticket Classfication tool/customer_support_tickets.csv"
+CSV_PATH  = "/Users/kpitsiakkos/Documents/Langchain-and-Langgraph-Specialization/Automatic Ticket Classfication tool/Tickets.csv"
 DOCS_PATH = "/Users/kpitsiakkos/Documents/Langchain-and-Langgraph-Specialization/Automatic Ticket Classfication tool/Documents"
 MODEL_PATH = "modelsvm.pk1"
 
