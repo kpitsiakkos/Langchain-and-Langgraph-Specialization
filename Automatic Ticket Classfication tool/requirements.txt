@@ -1,5 +1,8 @@
 gradio
 langchain
+langchain-openai
+langchain-community
+langchain-pinecone
 openai
 tiktoken
 python-dotenv
@@ -9,5 +12,3 @@ joblib
 pandas
 scikit-learn
 sentence-transformers
-langchain-openai
-langchain-community
