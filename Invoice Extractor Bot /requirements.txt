@@ -1,0 +1,6 @@
+replicate
+gradio
+python-dotenv
+pypdf
+pandas
+ 
