@@ -1,8 +1,13 @@
 import gradio as gr
 from dotenv import load_dotenv
 from utils import create_docs
+import os
 
 extracted_df = None
+
+css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "style.css")
+with open(css_path, "r") as f:
+    custom_css = f.read()
 
 
 def extract_invoices(pdf_files):
@@ -27,14 +32,14 @@ def extract_invoices(pdf_files):
             )
 
         return (
-            gr.update(value="Extraction complete!", visible=True),
+            gr.update(value="✅  Extraction complete!", visible=True),
             extracted_df,
             gr.update(visible=True),
             gr.update(visible=False)
         )
     except Exception as e:
         return (
-            gr.update(value=f"Error: {str(e)}", visible=True),
+            gr.update(value=f"❌  Error: {str(e)}", visible=True),
             None,
             gr.update(visible=False),
             gr.update(visible=False)
@@ -52,22 +57,37 @@ def download_csv():
     return gr.update(value=csv_path, visible=True)
 
 
-with gr.Blocks(title="Invoice Extraction Bot") as app:
-    gr.Markdown("# Invoice Extraction Bot")
-    gr.Markdown("Upload one or more PDF invoices to extract structured data.")
+with gr.Blocks(title="Invoice Extraction Bot", css=custom_css) as app:
 
-    with gr.Row():
+    with gr.Column(elem_id="header-block"):
+        gr.Markdown("# 🧾 Invoice Extraction Bot")
+        gr.Markdown("Upload one or more PDF invoices to extract structured data into a CSV.")
+
+    with gr.Column(elem_id="upload-zone"):
         pdf_input = gr.File(
             label="Upload PDF invoices",
             file_types=[".pdf"],
             file_count="multiple"
         )
 
-    extract_btn = gr.Button("Extract Data", variant="primary")
-    status_msg = gr.Textbox(label="Status", interactive=False, visible=False)
-    data_table = gr.Dataframe(label="Extracted Invoice Data", interactive=False)
-    download_btn = gr.Button("Download as CSV", variant="secondary", visible=False)
-    csv_download = gr.File(label="Your CSV is ready", visible=False)
+    extract_btn = gr.Button("Extract Data", variant="primary", elem_id="extract-btn")
+
+    status_msg = gr.Textbox(
+        label="",
+        interactive=False,
+        visible=False,
+        elem_id="status-box"
+    )
+
+    data_table = gr.Dataframe(
+        label="Extracted Invoice Data",
+        interactive=False,
+        wrap=True,
+        elem_id="data-table"
+    )
+
+    download_btn = gr.Button("⬇  Download as CSV", variant="secondary", visible=False, elem_id="download-btn")
+    csv_download = gr.File(label="Your CSV is ready", visible=False, elem_id="csv-output")
 
     extract_btn.click(
         fn=extract_invoices,
