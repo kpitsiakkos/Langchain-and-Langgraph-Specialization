@@ -1,4 +1,5 @@
 import gradio as gr
+from utils import email_summary
 import os
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
@@ -151,6 +152,7 @@ def process_and_send(audio_files, recipient_email):
         file_name = os.path.basename(file_path)
         log_lines.append(f"⏳  Transcribing: {file_name} …")
         try:
+            email_summary(file_path, recipient_email)
             log_lines.append(f"✓   Email sent for: {file_name}")
         except Exception as e:
             log_lines.append(f"✕   Failed - {file_name}: {str(e)}")

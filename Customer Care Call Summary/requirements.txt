@@ -1,5 +1,7 @@
 ffmpeg-python
-langchain
 openai-whisper
-openai
 gradio
+langchain
+langchain-openai
+langchain-community
+openai
