@@ -1,13 +1,13 @@
 import gradio as gr
 import pandas as pd
-
+from helpers import *
 
 def extract_bills(pdf_files):
     if not pdf_files:
         return None, "Please upload at least one PDF file.", None
 
     data_frame = create_docs(pdf_files)
-    data_frame["AMOUNT"] = data_frame["AMOUNT"].astype(float)
+    data_frame["AMOUNT"] = data_frame["AMOUNT"].str.replace(",", "").astype(float)
     average = data_frame["AMOUNT"].mean()
 
     # Save to CSV
