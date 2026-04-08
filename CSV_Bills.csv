@@ -1,0 +1,4 @@
+Invoice ID,DESCRIPTION,Issue Date,UNIT PRICE,AMOUNT,Bill For,From,Terms
+"2,389",Phone and data bill,11/27/2026,500.00,500.0,Paul Regex,DR-TeleP,Due upon receipt
+1000,Condo Rental,11/27/2026,"2,500.00",2500.0,Paul Regex,DR-TeleP,Due upon receipt
+1000,Water and Sewage,11/27/2026,134.00,134.0,Paul Regex,DR-TeleP,Due upon receipt
