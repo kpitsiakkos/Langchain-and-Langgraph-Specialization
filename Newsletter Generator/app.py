@@ -1,28 +1,25 @@
 import gradio as gr
+from helpers import (
+    search_serp,
+    pick_best_articles_urls,
+    extract_content_from_urls,
+    summarizer,
+    generate_newsletter,
+)
 
-# ── Placeholder — swap these out with your real helpers later ──────────────
-def search_serp(query): return f"[search results for '{query}']"
-def pick_best_articles_urls(response_json, query): return []
-def extract_content_from_urls(urls): return None          # will be your FAISS db
-def summarizer(data, query): return f"[summaries for '{query}']"
-def generate_newsletter(summaries, query): return f"[newsletter thread for '{query}']"
-# ──────────────────────────────────────────────────────────────────────────
 
 def run_pipeline(query):
     if not query or not query.strip():
         return ("", "", "", "", "")
 
-    search_results       = search_serp(query=query)
-    urls                 = pick_best_articles_urls(response_json=search_results, query=query)
-    data                 = extract_content_from_urls(urls)
-    summaries            = summarizer(data, query)
-    newsletter_thread    = generate_newsletter(summaries, query)
+    search_results    = search_serp(query=query)
+    urls              = pick_best_articles_urls(response_json=search_results, query=query)
+    data              = extract_content_from_urls(urls)
+    summaries         = summarizer(data, query)
+    newsletter_thread = generate_newsletter(summaries, query)
 
     urls_text  = "\n".join(urls) if isinstance(urls, list) else str(urls)
-    data_text  = (
-        " ".join(d.page_content for d in data.similarity_search(query, k=4))
-        if data is not None else "(data not available yet)"
-    )
+    data_text  = " ".join(d.page_content for d in data.similarity_search(query, k=4))
 
     return (
         str(search_results),
@@ -36,7 +33,7 @@ def run_pipeline(query):
 with gr.Blocks(title="Newsletter Generator 🦜") as demo:
 
     gr.Markdown("# 🦜 Generate a Newsletter")
-    gr.Markdown("Enter a topic below and the app will search, summarise, and write a newsletter thread for you.")
+    gr.Markdown("Enter a topic and the app will search, summarise, and write a newsletter thread for you.")
 
     query_input = gr.Textbox(
         label="Topic",
@@ -66,6 +63,7 @@ with gr.Blocks(title="Newsletter Generator 🦜") as demo:
         inputs=[query_input],
         outputs=[search_out, urls_out, data_out, summaries_out, newsletter_out],
     )
+
 
 if __name__ == "__main__":
     demo.launch()
